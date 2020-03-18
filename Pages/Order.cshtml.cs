@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Bakery.Data;
 using Bakery.Models;
@@ -50,6 +52,49 @@ namespace Bakery.Pages
             Product = await db.Products.FindAsync(Id);
             if (ModelState.IsValid)
             {
+                var emailBody = 
+                    $@"<p>Thank you, we have received your order for {OrderQuantity} unit(s) of {Product.Name}!</p>
+                    <p>Your email address is <br/> {OrderShipping.Replace("\n", "<br/>")}</p>
+                    Your total is ${Product.Price * OrderQuantity}.<br/>
+                    We will contact you if we have questions about your order. Thank you!<br/>
+                    <br/> <br/> <br/> 
+
+                    HH <br/>
+                    Manager, Fifth Coffee, LLC";
+                
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                    smtp.PickupDirectoryLocation = @"c:\mailpickup";
+                    var message = new MailMessage();
+                    message.To.Add(OrderEmail);
+                    message.Subject="Fifth Coffee - Your New Order";
+                    message.Body = emailBody;
+                    message.IsBodyHtml = true;
+                    message.From = new MailAddress("sales@fifthcoffee.com");
+                    await smtp.SendMailAsync(message);
+                }
+
+                // url: https://stackoverflow.com/questions/32260/sending-email-in-net-through-gmail
+                // HH: try to send email via gmail.com
+                // using (MailMessage mail = new MailMessage())
+                // {
+                //     mail.From = new MailAddress("xxxx@domain.com");
+                //     mail.To.Add(OrderEmail);
+                //     mail.Subject ="Fifth Coffee - Your New Order";
+                //     mail.Body = emailBody;
+                //     mail.IsBodyHtml = true;
+                //     // mail.Attachments.Add(new Attachment("C:\\file.zip"));
+
+                //     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                //     {
+                //         smtp.Credentials = 
+                //             new NetworkCredential("xxxx@domain.com", "password");
+                //         smtp.EnableSsl = true;
+                //         await smtp.SendMailAsync(mail);
+                //     }
+                // }
+
                 return RedirectToPage("OrderSuccess");
             }
             return Page();
