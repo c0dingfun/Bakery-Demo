@@ -1,0 +1,22 @@
+﻿@* "{id:int}" defines route template, for the route parameter for the page *@
+@page "{id:int}"
+@model Bakery.Pages.OrderModel
+@{
+    ViewData["Title"] = "Place Your Order";
+}
+
+<ol id="orderProcess">
+    <li> <span class="step-number">1</span>
+        Choose Item
+    </li>
+    <li clss="Current">
+        <span class="step-number">2</span>
+        Detailss &amp; Submit
+    </li>
+    <li>
+        <span class="step-number">3</span>
+        Receipt
+    </li>
+</ol>
+
+<h1>Place Your Oder: @Model.Product.Name</h1>

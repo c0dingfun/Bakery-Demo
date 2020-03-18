@@ -1,3 +1,4 @@
+using Bakery.Data.Configurations;
 using Bakery.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,5 +12,11 @@ namespace Bakery.Data
         {
             opt.UseSqlite(@"Data source=Bakery.db");
         }
+
+        // HH: ProductConfiguration is register here (OnModelCreating())
+        protected override void OnModelCreating(ModelBuilder builder) => 
+            builder.ApplyConfiguration(new ProductConfiguration())
+                   .Seed(); // HH: calling extension method to seed the data
     }
+
 }

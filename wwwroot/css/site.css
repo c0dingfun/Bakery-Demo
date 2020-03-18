@@ -12,6 +12,87 @@ a.navbar-brand {
   justify-content: flex-end;
 }
 
+/* HH: - begin */
+body{
+  color: #696969;
+}
+
+a:link {
+  color: #3b3420;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #3b3420;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #a52f09;
+  text-decoration: none;
+}
+
+a:active {
+  color: #a52f09;
+}
+
+/* class: order-button */
+a.order-button, a.order-button:hover{
+  color: #fdfcf7;
+}
+
+/* class: productInfo, action */
+.productInfo, .action{
+  max-width: 200px;
+}
+
+p{
+  font-size: 0.8rem;
+}
+
+/* id: orderProcess */
+#orderProcess {
+  list-style: none;
+  padding: 0;
+  clear: both;
+}
+
+#orderProcess li {
+  color: #696969;
+  display: inline;
+  font-size: 1.2em;
+  margin-right: 15px;
+  padding: 3px 0px 0px 5px;
+}
+
+/* class: step-number */
+.step-number {
+    background-color: #edece8;
+    border: 1px solid #e6e4d9;
+    font-size: 1.5em;
+    margin-right: 5px;
+    padding: 3px 10px;
+}
+
+/* class: current, step-number */
+.current .step-number {
+    background-color: #a52f09;
+    border-color: #712107;
+    color: #fefefe;
+} 
+
+/* class orderPageList */
+.orderPageList{
+    padding-inline-start: 20px;
+}
+
+/* class: actions, order-button */
+.actions .order-button{
+  margin-left:20px;
+}
+
+/* HH: - end */
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
